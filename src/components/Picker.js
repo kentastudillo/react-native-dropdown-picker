@@ -780,12 +780,7 @@ function Picker({
      * @returns {JSX.Element}
      */
     const SimpleBodyComponent = useMemo(() => {
-        if (LabelComponent) {
-            const item = getSelectedItem();
-
-            return <LabelComponent item={item} />
-        }
-        return (
+        const defaultContent = (
             <>
                 {SelectedItemIconComponent}
                 <Text style={_labelStyle} {...labelProps}>
@@ -793,6 +788,16 @@ function Picker({
                 </Text>
             </>
         );
+
+        if (LabelComponent) {
+            const item = getSelectedItem();
+
+            if (item) {
+                return <LabelComponent item={item} />;
+            }
+        }
+
+        return defaultContent;
     }, [getSelectedItem, SelectedItemIconComponent, _labelStyle, labelProps, _selectedItemLabel, LabelComponent]);
 
     /**
