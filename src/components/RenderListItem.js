@@ -153,7 +153,7 @@ function RenderListItem({
         <TouchableOpacity style={_listItemContainerStyle} onPress={__onPress} disabled={selectable === false || disabled}>
             {IconComponent}
             <Text style={_listItemLabelStyle}>
-                {LabelComponent ? <LabelComponent /> : label}
+                {LabelComponent ? <LabelComponent item={item} /> : label}
             </Text>
             {_TickIconComponent}
         </TouchableOpacity>

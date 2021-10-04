@@ -1312,7 +1312,8 @@ function Picker({
         categorySelectable,
         onPressItem,
         theme,
-        THEME
+        THEME,
+        LabelComponent,
     ]);
 
     /**
