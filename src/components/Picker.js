@@ -147,7 +147,8 @@ function Picker({
     rtl = false,
     dropDownDirection = DROPDOWN_DIRECTION.DEFAULT,
     disableLocalSearch = false,
-    theme = THEMES.DEFAULT
+    theme = THEMES.DEFAULT,
+    LabelComponent = null,
 }) {
     const [necessaryItems, setNecessaryItems] = useState([]);
     const [searchText, setSearchText] = useState('');
@@ -171,7 +172,7 @@ function Picker({
      */
     useEffect(() => {
         // LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-        
+
         // Get initial seleted items
         let initialSelectedItems = [];
         const valueNotNull = value !== null && (Array.isArray(value) && value.length !== 0);
@@ -194,11 +195,11 @@ function Picker({
         setNecessaryItems(state => {
             return [...state].map(item => {
                 const _item = items.find(x => x[_schema.value] === item[_schema.value]);
-                
+
                 if (_item) {
                     return {...item, ..._item};
                 }
-                
+
                 return item;
             });
         });
@@ -212,7 +213,7 @@ function Picker({
             setNecessaryItems(state => {
                 if (value === null || (Array.isArray(value) && value.length === 0))
                     return [];
-                
+
                 let _state = [...state].filter(item => value.includes(item[_schema.value]));
 
                 const newItems = value.reduce((accumulator, currentValue) => {
@@ -220,7 +221,7 @@ function Picker({
 
                     if (index === -1) {
                         const item = items.find(item => item[_schema.value] === currentValue);
-                    
+
                         if (item) {
                             return [...accumulator, item];
                         }
@@ -243,7 +244,7 @@ function Picker({
                     state.push(item);
                 }
             }
-            
+
             setNecessaryItems(state);
         }
 
@@ -350,7 +351,7 @@ function Picker({
         } else {
             if (disableLocalSearch)
                 return sortedItems;
-    
+
             const values = [];
             let results = sortedItems.filter(item => {
                 if (item[_schema.label].toLowerCase().includes(searchText.toLowerCase())) {
@@ -472,7 +473,7 @@ function Picker({
 
         if (isNull)
             return null;
-        
+
         try {
             return necessaryItems.find(item => item[_schema.value] === _value);
         } catch (e) {
@@ -897,7 +898,7 @@ function Picker({
     const _itemKey = useMemo(() => {
         if (itemKey === null)
             return _schema.value;
-        
+
         return itemKey;
     }, [itemKey, _schema]);
 
@@ -1088,7 +1089,7 @@ function Picker({
         THEME.listMessageText,
         ...[listMessageTextStyle].flat()
     ]), [listMessageTextStyle, THEME]);
-    
+
 
     /**
      * onPress item.
@@ -1284,6 +1285,7 @@ function Picker({
                 onPress={onPressItem}
                 theme={theme}
                 THEME={THEME}
+                LabelComponent={LabelComponent}
             />
         );
     }, [
@@ -1469,7 +1471,7 @@ function Picker({
         _ActivityIndicatorComponent,
         loading
     ]);
-    
+
     /**
      * The dropdown flatlist component.
      * @returns {JSX.Element}
@@ -1505,7 +1507,7 @@ function Picker({
     const DropDownScrollViewComponent = useMemo(() => {
         return (
             <ScrollView nestedScrollEnabled={true} stickyHeaderIndices={stickyHeaderIndices} {...scrollViewProps} >
-                {_items.map((item, index) => { 
+                {_items.map((item, index) => {
                     return (
                         <Fragment key={item[_itemKey]}>
                             {index > 0 && ItemSeparatorComponent()}

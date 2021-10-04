@@ -37,7 +37,8 @@ function RenderListItem({
     disabledItemLabelStyle,
     categorySelectable,
     onPress,
-    THEME
+    THEME,
+    LabelComponent,
 }) {
     /**
      * The tick icon component.
@@ -152,7 +153,7 @@ function RenderListItem({
         <TouchableOpacity style={_listItemContainerStyle} onPress={__onPress} disabled={selectable === false || disabled}>
             {IconComponent}
             <Text style={_listItemLabelStyle}>
-                {label}
+                {LabelComponent ? <LabelComponent /> : label}
             </Text>
             {_TickIconComponent}
         </TouchableOpacity>
@@ -180,7 +181,7 @@ const areEqual = (nextProps, prevProps) => {
         return false;
     if (nextProps.theme !== prevProps.theme)
         return false;
-    
+
     return true;
 }
 
