@@ -779,14 +779,21 @@ function Picker({
      * The simple body component.
      * @returns {JSX.Element}
      */
-    const SimpleBodyComponent = useMemo(() => (
-        <>
-            {SelectedItemIconComponent}
-            <Text style={_labelStyle} {...labelProps}>
-                {_selectedItemLabel}
-            </Text>
-        </>
-    ), [SelectedItemIconComponent, _labelStyle, labelProps, _selectedItemLabel]);
+    const SimpleBodyComponent = useMemo(() => {
+        if (LabelComponent) {
+            const item = getSelectedItem();
+
+            return <LabelComponent item={item} />
+        }
+        return (
+            <>
+                {SelectedItemIconComponent}
+                <Text style={_labelStyle} {...labelProps}>
+                    {_selectedItemLabel}
+                </Text>
+            </>
+        );
+    }, [getSelectedItem, SelectedItemIconComponent, _labelStyle, labelProps, _selectedItemLabel, LabelComponent]);
 
     /**
      * onPress badge.

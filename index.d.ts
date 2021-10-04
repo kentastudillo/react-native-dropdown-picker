@@ -51,7 +51,7 @@ declare module "react-native-dropdown-picker" {
     }
 
     export type LanguageType = "DEFAULT" | "FALLBACK" | "EN" | "AR" | "FA" | "TR";
-    
+
     export interface TranslationInterface {
       PLACEHOLDER: string;
       SEARCH_PLACEHOLDER: string;
@@ -87,6 +87,7 @@ declare module "react-native-dropdown-picker" {
       isSelected: boolean;
       IconComponent: () => JSX.Element;
       TickIconComponent: () => JSX.Element;
+      LabelComponent?: (props: {style: StyleProp<ViewStyle>}) => JSX.Element;
       listItemContainerStyle: StyleProp<ViewStyle>;
       listItemLabelStyle: StyleProp<TextStyle>;
       listChildContainerStyle: StyleProp<ViewStyle>;
@@ -121,7 +122,7 @@ declare module "react-native-dropdown-picker" {
     export type DropDownDirectionType = "DEFAULT" | "TOP" | "BOTTOM" | "AUTO";
     export type ThemeNameType = "DEFAULT" | "LIGHT" | "DARK";
     export type ThemeType = object; //TODO: give this a specific type; maybe something like StyleSheet.Styles? or an object of all the fields in each type definition in the source files
-  
+
     export type DropDownPickerProps = {
       items: ItemType[];
       value: ValueType | ValueType[] | null;
@@ -195,6 +196,7 @@ declare module "react-native-dropdown-picker" {
       CloseIconComponent?: (props: {style: StyleProp<ViewStyle>}) => JSX.Element;
       ListEmptyComponent?: (props: ListEmptyComponentPropsInterface) => JSX.Element;
       ActivityIndicatorComponent?: (props: ActivityIndicatorComponentPropsInterface) => JSX.Element;
+      LabelComponent?: (props: {style: StyleProp<ViewStyle>}) => JSX.Element;
       activityIndicatorSize?: number;
       activityIndicatorColor?: string;
       props?: ViewProps;
@@ -252,5 +254,5 @@ declare module "react-native-dropdown-picker" {
     const DropDownPicker: ComponentType<DropDownPickerProps> & DropDownPickerInterface;
     export default DropDownPicker;
   }
-    
+
   //TODO: remove uses of the ambiguous "any" and "object" types
